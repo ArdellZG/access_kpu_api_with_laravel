@@ -80,14 +80,15 @@
                     let data = axios.get("http://localhost:8000/api/suara").then(function(data) {
                             vue.Suara = data.data.Suara01 + data.data.Suara02;
                             vue.S01 = data.data.Suara01;
-                            vue.S02 = data.data.Suara02;
-                            return data;
+                            vue.S02 = data.data.Suara02;                            
                         });
                     setInterval(function () {
-                        vue.Suara = data.data.Suara01 + data.data.Suara02;
-                        vue.S01 = data.data.Suara01;
-                        vue.S02 = data.data.Suara02;
-                    }, 60000)                        
+                        data = axios.get("http://localhost:8000/api/suara").then(function(data) {                            
+                            vue.Suara = data.data.Suara01 + data.data.Suara02;
+                            vue.S01 = data.data.Suara01;
+                            vue.S02 = data.data.Suara02;                            
+                        });                        
+                    }, 10000);                     
                 },
                 chart: function() {
                     let vue = this;
