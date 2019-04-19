@@ -42,7 +42,7 @@
                             <div class="card">
                                 <div class="card-header">Total Suara = @{{ Suara }} <br/> (Sumber: <a href="https://pemilu2019.kpu.go.id">KPU 2019</a>)</div>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Jokowi & Ma'Aruf: @{{ S01 }} ( @{{ ((S01/Suara) * 100).toFixed(2) }}% )</li>
+                                    <li class="list-group-item">Jokowi & Ma'ruf: @{{ S01 }} ( @{{ ((S01/Suara) * 100).toFixed(2) }}% )</li>
                                     <li class="list-group-item">Prabowo & Sandi: @{{ S02 }} ( @{{ ((S02/Suara) * 100).toFixed(2) }}% )</li>
                                 </ul>
                             </div>
