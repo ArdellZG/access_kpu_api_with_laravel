@@ -9,12 +9,12 @@ class SuaraController extends Controller
 {
     public function extractAPI()
     {
-        $arrContextOptions=array(
-            "ssl"=>array(
+        $arrContextOptions=[
+            "ssl"=>[
                 "verify_peer"=>false,
                 "verify_peer_name"=>false,
-            ),
-        );          
+            ],
+        ];          
         $response = file_get_contents("https://pemilu2019.kpu.go.id/static/json/hhcw/ppwp.json", false, stream_context_create($arrContextOptions));
         
         $result = (array) json_decode($response);
@@ -28,7 +28,9 @@ class SuaraController extends Controller
         return response()->json([            
             'Suara01' => $suara['21'],
             'Suara02' => $suara['22'],
-            'last_update' => $time_fix
+            'last_update' => $time_fix,
+            'kpu' => $result['progress']->proses,
+            'kpu_total' => $result['progress']->total
         ], 200);
     }
 }

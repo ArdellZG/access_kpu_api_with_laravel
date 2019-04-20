@@ -11,6 +11,10 @@
 |
 */
 
+use Illuminate\Support\Carbon;
+
 Route::get('/', function() {
-    return view('pages/suara');
+    return view('pages/suara', [
+        'year' => Carbon::now()->year
+    ]);
 });

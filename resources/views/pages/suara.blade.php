@@ -33,7 +33,7 @@
         <div class="container">
             <div class="card mt-5">
                 <div class="card-header">
-                    Real Count
+                    Real Count (@{{ kpu_now }} dari @{{ kpu_total }} KPU)
                 </div>
                 <div class="card-body">
 
@@ -51,15 +51,22 @@
                             <div class="card">
                                 <div class="card-header">Chart:</div>
                                 <div class="card-body">
-                                    <div id="chart" style="min-width:500px; height:300px"></div>
+                                    <div id="chart" style="min-width:1%00; height:300px"></div>
                                 </div>
                             </div>                            
                         </div>
                     </div>
 
                 </div>
-                <div class="card-footer text-right">
-                    Last updated: @{{ last_update }}
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            &copy;Copyright <a href="http://instagram.com/muhamadadam404">Muhamad Adam {{ $year }}</a>
+                        </div>
+                        <div class="col text-right">
+                            Last updated: @{{ last_update }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,7 +84,9 @@
                 Suara: 0,
                 S01: 0,
                 S02: 0,
-                last_update: ""
+                last_update: "",
+                kpu_now: 0,
+                kpu_total: 0
             },
             methods: {                
                 fillSuara: function() {
@@ -88,13 +97,17 @@
                             vue.S01 = data.data.Suara01;
                             vue.S02 = data.data.Suara02;
                             vue.last_update = data.data.last_update;                          
+                            vue.kpu_now = data.data.kpu;
+                            vue.kpu_total = data.data.kpu_total;
                         });
                     setInterval(function () {
                         data = axios.get("http://localhost:8000/api/suara").then(function(data) {                            
                             vue.Suara = data.data.Suara01 + data.data.Suara02;
                             vue.S01 = data.data.Suara01;
                             vue.S02 = data.data.Suara02;     
-                            vue.last_update = data.data.last_update;                       
+                            vue.last_update = data.data.last_update; 
+                            vue.kpu_now = data.data.kpu;
+                            vue.kpu_total = data.data.kpu_total;                      
                         });                        
                     }, 10000);                     
                 },
