@@ -29,7 +29,7 @@
 </head>
 <body>
     
-    <div id="app" v-on:load="fillSuara">
+    <div id="app"">
         <div class="container">
             <div class="card mt-5">
                 <div class="card-header">
@@ -58,6 +58,9 @@
                     </div>
 
                 </div>
+                <div class="card-footer text-right">
+                    Last updated: @{{ last_update }}
+                </div>
             </div>
         </div>
     </div>
@@ -65,13 +68,16 @@
     <script>
         var vue = new Vue({
             el: "#app",
-            beforeMount() {
+            beforeMount() {                
                 this.fillSuara();
+                google.charts.load("current", {packages:["corechart"]});
+                google.charts.setOnLoadCallback(this.chart);
             },
             data: {
                 Suara: 0,
                 S01: 0,
-                S02: 0
+                S02: 0,
+                last_update: ""
             },
             methods: {                
                 fillSuara: function() {
@@ -80,13 +86,15 @@
                     let data = axios.get("http://localhost:8000/api/suara").then(function(data) {
                             vue.Suara = data.data.Suara01 + data.data.Suara02;
                             vue.S01 = data.data.Suara01;
-                            vue.S02 = data.data.Suara02;                            
+                            vue.S02 = data.data.Suara02;
+                            vue.last_update = data.data.last_update;                          
                         });
                     setInterval(function () {
                         data = axios.get("http://localhost:8000/api/suara").then(function(data) {                            
                             vue.Suara = data.data.Suara01 + data.data.Suara02;
                             vue.S01 = data.data.Suara01;
-                            vue.S02 = data.data.Suara02;                            
+                            vue.S02 = data.data.Suara02;     
+                            vue.last_update = data.data.last_update;                       
                         });                        
                     }, 10000);                     
                 },
@@ -126,8 +134,7 @@
         });
 
         
-        google.charts.load("current", {packages:["corechart"]});
-        google.charts.setOnLoadCallback(vue.chart);
+
         
 
         

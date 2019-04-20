@@ -17,12 +17,12 @@ class SuaraController extends Controller
         );          
         $response = file_get_contents("https://pemilu2019.kpu.go.id/static/json/hhcw/ppwp.json", false, stream_context_create($arrContextOptions));
         
-        $result_array = (array) json_decode($response);
-        $result = (array) $result_array['chart'];
-
+        $result = (array) json_decode($response);        
+        $suara  = (array) $result['chart'];
         return response()->json([            
-            'Suara01' => $result['21'],
-            'Suara02' => $result['22'],
+            'Suara01' => $suara['21'],
+            'Suara02' => $suara['22'],
+            'last_update' => $result['ts']
         ], 200);
     }
 }
